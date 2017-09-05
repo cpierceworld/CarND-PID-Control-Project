@@ -1,6 +1,17 @@
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
 
+## Reflection
+For this project I implemented a Proportion/Integral/Derivative (PID) Controller to control the steering of a simulated car.  
+
+For the PID coefficients (Kp, Ki, and Kd), I started by manually experimenting with values to find a setting that allowed the car to go around the track.  I started with keeping the Ki and Kd at zero and experimenting with Kp.  I was able to find a setting that allowed the car to travel straight sections of track though zig-zagging wildly.   I then added values for Kd which dampened the zig-zag motion and eventually was able to get the car to do a complete lap.   The Ki value seemed to only make the performance worse with any value other than zero (I assume the simulated care has no systematic bias, e.g. "drift").
+
+I then implemented a "twiddle" class to allow me to automate finding better coefficients.  I start accumulating the error after a set amount of time steps, and then "twiddle" the coefficients after another set amount of time steps pass.  I then reset the simulator and PID controller and start over.
+
+I found that no setting was able to stop the oscillation of the car, especially after a turn.  I added some rudimentary speed control by decreasing the throttle value based on the seer angle (even allowing "braking" via negative throttle) and that seemed to greatly improve the oscillation problem.
+
+A video of the resulting run can be found here: https://youtu.be/6Q8sb50lP4A
+
 ---
 
 ## Dependencies
